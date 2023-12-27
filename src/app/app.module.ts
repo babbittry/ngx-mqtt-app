@@ -13,12 +13,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsProviderModule } from './icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { IconDefinition } from '@ant-design/icons-angular';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
+import * as AllIcons from '@ant-design/icons-angular/icons';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DownlinkComponent } from './pages/downlink/downlink.component';
+import { UplinkComponent } from './pages/uplink/uplink.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+
+const antDesignIcons = AllIcons as {
+  [key: string]: IconDefinition;
+};
+const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesignIcons[key])
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DashboardComponent,
+    DownlinkComponent,
+    UplinkComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +44,9 @@ registerLocaleData(zh);
     BrowserAnimationsModule,
     IconsProviderModule,
     NzLayoutModule,
-    NzMenuModule
+    NzMenuModule,
+      NzIconModule,
+      NzIconModule.forRoot(icons),
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN }

@@ -2,32 +2,27 @@
     <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
         [nzTrigger]="null">
         <div class="sidebar-logo">
-            <a href="https://ng.ant.design/" target="_blank">
-                <!-- <img src="assets/logo.png" alt="logo"> -->
+            <a  routerLink="/" target="_self">
                 <img src="assets/icon.ico" alt="logo">
                 <h1>横河电机 Sushi 管理平台</h1>
             </a>
         </div>
         <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-            <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-                <ul>
-                    <li nz-menu-item nzMatchRouter>
-                        <a routerLink="/welcome">Welcome</a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter>
-                        <a>Monitor</a>
-                    </li>
-                    <li nz-menu-item nzMatchRouter>
-                        <a>Workplace</a>
-                    </li>
-                </ul>
+            <li nz-menu-item routerLink="/dashboard">
+                <i nz-icon nzType="dashboard" nzTheme="outline"></i>
+                <span>Dashboard</span>
             </li>
-            <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-                <ul>
-                    <li nz-menu-item nzMatchRouter>
-                        <a>Basic Form</a>
-                    </li>
-                </ul>
+            <li nz-menu-item routerLink="/downlink">
+                <i nz-icon nzType="cloud-download" nzTheme="outline"></i>
+                <span>Downlink</span>
+            </li>
+            <li nz-menu-item routerLink="/uplink">
+                <i nz-icon nzType="cloud-upload" nzTheme="outline"></i>
+                <span>Uplink</span>
+            </li>
+            <li nz-menu-item routerLink="/settings">
+                <i nz-icon nzType="setting" nzTheme="outline"></i>
+                <span>Settings</span>
             </li>
         </ul>
     </nz-sider>
