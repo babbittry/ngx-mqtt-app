@@ -1,1 +1,35 @@
-<p>settings works!</p>
+<div class="form-space">
+    <form #f="ngForm" (submit)="createConnection()">
+        <nz-form-item nz-row>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>IP / 域名</nz-form-label>
+            <input nz-col nz-input [nzSm]="18" [nzXs]="24" name="connectionHostname" [(ngModel)]="connection.hostname" />
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>端口</nz-form-label>
+            <input nz-col nz-input [nzSm]="18" [nzXs]="24" name="connectionPort" [(ngModel)]="connection.port" />
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>路径</nz-form-label>
+            <input nz-col nz-input [nzSm]="18" [nzXs]="24" name="connectionPath" [(ngModel)]="connection.path" />
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>ID</nz-form-label>
+            <input nz-col nz-input [nzSm]="18" [nzXs]="24" name="connectionClientId" [(ngModel)]="connection.clientId" />
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-label [nzSm]="6" [nzXs]="24">用户名</nz-form-label>
+            <input nz-col nz-input [nzSm]="18" [nzXs]="24" name="connectionUsername" [(ngModel)]="connection.username" />
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-label [nzSm]="6" [nzXs]="24">密码</nz-form-label>
+            <input nz-col nz-input [nzSm]="18" [nzXs]="24" name="connectionPassword" [(ngModel)]="connection.password" />
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-control [nzSm]="{offset: 6}" [nzXs]="{offset: 0}">
+                <button nz-button nzType="primary" *ngIf="!isConnection">连接</button>
+                <button nz-button nzType="primary" nzDanger *ngIf="isConnection" (click)="destroyConnection()">断开</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+

@@ -1,1 +1,20 @@
-<p>Downlink works!</p>
+<nz-table #basicTable [nzData]="deviceList">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>EUI</th>
+        <th>状态</th>
+        <th>继电器</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let device of basicTable.data">
+        <td>{{ device.ID }}</td>
+        <td>{{ device.EUIStr }}</td>
+        <td>{{ device.joinState ? '在线' : '离线' }}</td>
+        <td>
+            <nz-switch [(ngModel)]="device.relayState" [nzDisabled]="!device.joinState" (click)="changeState(device.ID)"></nz-switch>
+        </td>
+    </tr>
+    </tbody>
+</nz-table>

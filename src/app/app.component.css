@@ -78,3 +78,11 @@ nz-content {
   background: #fff;
   height: 100%;
 }
+
+nz-sider ul li {
+    font-size: 16px;
+}
+
+nz-sider ul li .anticon {
+    font-size: 16px;
+}
