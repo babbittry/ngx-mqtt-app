@@ -26,8 +26,8 @@
         </nz-form-item>
         <nz-form-item nz-row>
             <nz-form-control [nzSm]="{offset: 6}" [nzXs]="{offset: 0}">
-                <button nz-button nzType="primary" *ngIf="!isConnection">连接</button>
-                <button nz-button nzType="primary" nzDanger *ngIf="isConnection" (click)="destroyConnection()">断开</button>
+                <button nz-button nzType="primary" *ngIf="!this.myMqttService.isConnection">连接</button>
+                <button nz-button nzType="primary" nzDanger *ngIf="this.myMqttService.isConnection" (click)="destroyConnection()">断开</button>
             </nz-form-control>
         </nz-form-item>
     </form>

@@ -1,1 +1,43 @@
-<p>uplink works!</p>
+<div class="form-space">
+    <form #f="ngForm" (submit)="doSubscribe()">
+        <nz-form-item nz-row>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Topic</nz-form-label>
+            <input nz-col nz-input [nzSm]="18" [nzXs]="24" name="connectionHostname" [(ngModel)]="subscription.topic" />
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Qos</nz-form-label>
+            <input nz-col nz-input [nzSm]="18" [nzXs]="24" name="connectionPort" [(ngModel)]="subscription.qos" />
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-control [nzSm]="{offset: 6}" [nzXs]="{offset: 0}">
+                <button nz-button nzType="primary" [disabled]="!this.myMqttService.isConnection" *ngIf="!this.subscribeSuccess">连接</button>
+                <button nz-button nzType="primary" nzDanger *ngIf="this.subscribeSuccess" (click)="doUnSubscribe()">断开</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+
+<nz-table #basicTable [nzData]="receiveDataList">
+    <thead>
+    <tr>
+        <th>Device Name</th>
+        <th>Device EUI</th>
+        <th>Data</th>
+        <th>RSSI</th>
+        <th>SNR</th>
+        <th>频率</th>
+        <th>时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let receiveData of basicTable.data">
+        <td>{{ receiveData.deviceName }}</td>
+        <td>{{ receiveData.deviceEUI }}</td>
+        <td>{{ receiveData.data }}</td>
+        <td>{{ receiveData.RSSI }}</td>
+        <td>{{ receiveData.SNR }}</td>
+        <td>{{ receiveData.frequency }}</td>
+        <td>{{ receiveData.time }}</td>
+    </tr>
+    </tbody>
+</nz-table>

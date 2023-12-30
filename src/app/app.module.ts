@@ -31,6 +31,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 
+import { MyMqttService } from  './my-mqtt.service';
+
 
 const antDesignIcons = AllIcons as {
     [key: string]: IconDefinition;
@@ -83,7 +85,8 @@ registerLocaleData(zh);
         NzSwitchModule,
     ],
     providers: [
-        { provide: NZ_I18N, useValue: zh_CN }
+        { provide: NZ_I18N, useValue: zh_CN },
+        MyMqttService,
     ],
     bootstrap: [AppComponent]
 })
