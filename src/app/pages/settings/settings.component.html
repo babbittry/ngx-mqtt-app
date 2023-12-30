@@ -1,4 +1,4 @@
-<div class="form-space">
+<div class="connect-form-space">
     <form #f="ngForm" (submit)="createConnection()">
         <nz-form-item nz-row>
             <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>IP / 域名</nz-form-label>
@@ -28,6 +28,49 @@
             <nz-form-control [nzSm]="{offset: 6}" [nzXs]="{offset: 0}">
                 <button nz-button nzType="primary" *ngIf="!isConnection">连接</button>
                 <button nz-button nzType="primary" nzDanger *ngIf="isConnection" (click)="destroyConnection()">断开</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+
+<div class="downlink-area">
+    <nz-table #basicTable [nzData]="deviceList" nzHideOnSinglePage="true">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>EUI</th>
+            <th>状态</th>
+            <th>继电器</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let device of basicTable.data">
+            <td>{{ device.ID }}</td>
+            <td>{{ device.EUIStr }}</td>
+            <td *ngIf="device.joinState"><nz-tag [nzColor]="'green'">在线</nz-tag></td>
+            <td *ngIf="!device.joinState"><nz-tag [nzColor]="'red'">离线</nz-tag></td>
+            <td>
+                <nz-switch [(ngModel)]="device.relayState" [nzDisabled]="!device.joinState||!isConnection" (click)="changeState(device.ID)"></nz-switch>
+            </td>
+        </tr>
+        </tbody>
+    </nz-table>
+</div>
+
+<div class="subscribe-form-space">
+    <form #f="ngForm" (submit)="doSubscribe()">
+        <nz-form-item nz-row>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>Topic</nz-form-label>
+            <input nz-col nz-input [nzSm]="18" [nzXs]="24" name="subscriptionTopic" [(ngModel)]="subscription.topic" />
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>QoS</nz-form-label>
+            <input nz-col nz-input [nzSm]="18" [nzXs]="24" name="subscriptionQos" [(ngModel)]="subscription.qos" />
+        </nz-form-item>
+        <nz-form-item nz-row>
+            <nz-form-control [nzSm]="{offset: 6}" [nzXs]="{offset: 0}">
+                <button nz-button nzType="primary" *ngIf="!isConnection">订阅</button>
+                <button nz-button nzType="primary" nzDanger *ngIf="isConnection" (click)="doUnSubscribe()">取消订阅</button>
             </nz-form-control>
         </nz-form-item>
     </form>

@@ -12,13 +12,24 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+    selector: 'app-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.css'],
 })
 export class SettingsComponent implements OnInit{
     constructor(private _mqttService: MqttService, private message: NzMessageService) {
         this.client = this._mqttService;
+    }
+    deviceList = [
+        {ID: 1, EUIStr: '00-80-E1-15-00-44-99-15', EUI: '0080E11500449915', joinState: false, relayState: false},
+        {ID: 2, EUIStr: '00-80-E1-15-00-44-99-15', EUI: '0080E11500449915', joinState: true, relayState: false},
+        {ID: 3, EUIStr: '00-80-E1-15-00-44-99-15', EUI: '0080E11500449915', joinState: false, relayState: false},
+        {ID: 4, EUIStr: '00-80-E1-15-00-44-99-15', EUI: '0080E11500449915', joinState: false, relayState: false},
+        {ID: 5, EUIStr: '00-80-E1-15-00-44-99-15', EUI: '0080E11500449915', joinState: false, relayState: false},
+    ];
+
+    changeState(ID:number) {
+        console.log("第" + ID + "个设备被点击，当前状态为" + this.deviceList[ID - 1].relayState);
     }
     private curSubscription: Subscription | undefined;
     connection = {
@@ -50,7 +61,7 @@ export class SettingsComponent implements OnInit{
         { label: 2, value: 2 },
     ];
     client: MqttService | undefined;
-    isConnection:boolean = false;
+    public isConnection:boolean = false;
     subscribeSuccess:boolean = false;
 
     // 创建连接
@@ -112,7 +123,7 @@ export class SettingsComponent implements OnInit{
     destroyConnection() {
         try {
             this.client?.disconnect(true)
-            this.isConnection = false
+            this.isConnection = false;
             console.log('Successfully disconnected!')
             this.message.success("断开成功！");
         } catch (error: any) {

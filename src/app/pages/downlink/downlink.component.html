@@ -11,10 +11,13 @@
     <tr *ngFor="let device of basicTable.data">
         <td>{{ device.ID }}</td>
         <td>{{ device.EUIStr }}</td>
-        <td>{{ device.joinState ? '在线' : '离线' }}</td>
+<!--        <td>{{ device.joinState ? '在线' : '离线' }}</td>-->
+        <td *ngIf="device.joinState"><nz-tag [nzColor]="'green'">在线</nz-tag></td>
+        <td *ngIf="!device.joinState"><nz-tag [nzColor]="'red'">离线</nz-tag></td>
         <td>
-            <nz-switch [(ngModel)]="device.relayState" [nzDisabled]="!device.joinState" (click)="changeState(device.ID)"></nz-switch>
+            <nz-switch [(ngModel)]="device.relayState" [nzDisabled]="!device.joinState||isConnected" (click)="changeState(device.ID)"></nz-switch>
         </td>
     </tr>
     </tbody>
+    <div>{{isConnected}}</div>
 </nz-table>

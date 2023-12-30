@@ -26,6 +26,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import * as AllIcons from '@ant-design/icons-angular/icons';
@@ -81,6 +82,7 @@ registerLocaleData(zh);
         NzMessageModule,
         NzTableModule,
         NzSwitchModule,
+        NzTagModule,
     ],
     providers: [
         { provide: NZ_I18N, useValue: zh_CN }

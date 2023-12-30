@@ -18,7 +18,7 @@ form button {
     margin-top: 20px;
 }
 
-.form-space {
+.connect-form-space {
     max-width: 600px;
     margin: 50px;
     /*border-width: 1px;*/
@@ -26,4 +26,18 @@ form button {
     /*border-color: #001529;*/
     /*border-radius: 5px;*/
     /*padding: 30px;*/
+}
+
+.subscribe-form-space {
+    max-width: 600px;
+    margin: 50px;
+    /*border-width: 1px;*/
+    /*border-style: solid;*/
+    /*border-color: #001529;*/
+    /*border-radius: 5px;*/
+    /*padding: 30px;*/
+}
+
+.downlink-area {
+
 }
