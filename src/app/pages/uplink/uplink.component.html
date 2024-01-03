@@ -19,25 +19,25 @@
 
 <nz-table #basicTable [nzData]="receiveDataList">
     <thead>
-    <tr>
-        <th>Device Name</th>
-        <th>Device EUI</th>
-        <th>Data</th>
-        <th>RSSI</th>
-        <th>SNR</th>
-        <th>频率</th>
-        <th>时间</th>
-    </tr>
+        <tr>
+            <th>Device Name</th>
+            <th>Device EUI</th>
+            <th>Data</th>
+            <th>RSSI</th>
+            <th>SNR</th>
+            <th>频率</th>
+            <th>时间</th>
+        </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let receiveData of basicTable.data">
-        <td>{{ receiveData.deviceName }}</td>
-        <td>{{ receiveData.deviceEUI }}</td>
-        <td>{{ receiveData.data }}</td>
-        <td>{{ receiveData.RSSI }}</td>
-        <td>{{ receiveData.SNR }}</td>
-        <td>{{ receiveData.frequency }}</td>
-        <td>{{ receiveData.time }}</td>
-    </tr>
+        <tr *ngFor="let receiveData of basicTable.data">
+            <td>{{ receiveData.deviceName }}</td>
+            <td>{{ receiveData.deviceEUI }}</td>
+            <td>{{ receiveData.data }}</td>
+            <td>{{ receiveData.RSSI }}</td>
+            <td>{{ receiveData.SNR }}</td>
+            <td>{{ receiveData.frequency }}</td>
+            <td>{{ receiveData.time }}</td>
+        </tr>
     </tbody>
 </nz-table>

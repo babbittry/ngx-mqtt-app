@@ -15,49 +15,61 @@ import * as timers from "timers";
 export class UplinkComponent {
     constructor(public myMqttService: MyMqttService) {
     }
+
     private curSubscription: Subscription | undefined;
-    subscribeSuccess:boolean = false;
-    subscription:{topic:string, qos:number} = {
+    subscribeSuccess: boolean = false;
+    subscription: { topic: string, qos: number } = {
         topic: '/milesight/uplink',
         qos: 0,
     };
 
     public receiveDataList: receiveDataFormat[] = [{
         deviceName: '',
-        deviceEUI:'',
+        deviceEUI: '',
         data: '',
         RSSI: 0,
         SNR: 0,
         frequency: 0,
         time: '',
     }];
+
     // 订阅主题
 
     doSubscribe() {
-        const { topic, qos } = this.subscription;
+        const {topic, qos} = this.subscription;
         console.log('do subscribe', this.subscription)
         try {
-            this.curSubscription = this.myMqttService.client?.observe(topic, { qos } as IClientSubscribeOptions).subscribe((message: IMqttMessage) => {
-                console.log('Subscribe to topics res', message.payload.toString())
-                console.log(typeof(message));
-                console.log(message);
-                console.log(typeof(message.payload));
+            this.curSubscription = this.myMqttService.client?.observe(topic, {qos} as IClientSubscribeOptions).subscribe((message: IMqttMessage) => {
+                console.log('Subscribe to topics res')
+                const messageJsonObject = JSON.parse(message.payload.toString());
+                console.log(messageJsonObject);
+                const newReceiveDataObject: receiveDataFormat = {
+                    deviceName: messageJsonObject.deviceName,
+                    deviceEUI: messageJsonObject.devEUI,
+                    data: atob(messageJsonObject.data).toString(),  // decode base64
+                    RSSI: messageJsonObject.rxInfo[0].rssi,
+                    SNR: messageJsonObject.rxInfo[0].loRaSNR,
+                    frequency: messageJsonObject.txInfo.frequency,
+                    time: messageJsonObject.rxInfo[0].time,
+                };
+                console.log(newReceiveDataObject);
+                this.receiveDataList.push(newReceiveDataObject);
             })
+
             this.subscribeSuccess = true
             console.log('Subscribe succeeded!');
         } catch {
             console.log('Subscribe failed!');
         }
     }
+
     // 取消订阅
-    doUnSubscribe():void {
+    doUnSubscribe(): void {
         this.curSubscription?.unsubscribe();
         this.subscribeSuccess = false;
         console.log('Unsubscribe succeeded!');
     }
-
 }
-
 interface receiveDataFormat {
     readonly deviceName: string
     readonly deviceEUI: string;

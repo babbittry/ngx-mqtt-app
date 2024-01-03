@@ -20,13 +20,17 @@ export class DownlinkComponent {
     ];
 
     publish = {
-        topic: 'topic/browser',
+        topic: '/milesight/downlink/0080E11500449915',
         qos: 0,
-        payload: '{ "msg": "Hello, I am browser." }',
+        payload: '{"confirmed": true,"fport": 2,"data": "AgE="}',
     };
 
     changeState(ID:number) {
         console.log("第" + ID + "个设备被点击，当前状态为" + this.deviceList[ID - 1].relayState);
+        this.publish.topic = "/milesight/downlink/" + this.deviceList[ID - 1].EUI;
+        this.publish.payload = this.deviceList[ID - 1].relayState
+                                ? '{"confirmed": true,"fport": 2,"data": "AgA="}'
+                                : '{"confirmed": true,"fport": 2,"data": "AgE="}';
         this.doPublish();
     }
     // 发送消息
