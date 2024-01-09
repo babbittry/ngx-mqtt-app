@@ -11,13 +11,6 @@ export class DownlinkComponent {
 
     constructor(public myMqttService: MyMqttService) {
     }
-    deviceList = [
-        {ID: 1, EUIStr: '00-80-E1-15-00-44-99-15', EUI: '0080E11500449915', joinState: true, relayState: false},
-        {ID: 2, EUIStr: '00-80-E1-15-00-44-99-15', EUI: '0080E11500449915', joinState: false, relayState: false},
-        {ID: 3, EUIStr: '00-80-E1-15-00-44-99-15', EUI: '0080E11500449915', joinState: false, relayState: false},
-        {ID: 4, EUIStr: '00-80-E1-15-00-44-99-15', EUI: '0080E11500449915', joinState: false, relayState: false},
-        {ID: 5, EUIStr: '00-80-E1-15-00-44-99-15', EUI: '0080E11500449915', joinState: false, relayState: false},
-    ];
 
     publish = {
         topic: '/milesight/downlink/0080E11500449915',
@@ -26,12 +19,13 @@ export class DownlinkComponent {
     };
 
     changeState(ID:number) {
-        console.log("第" + ID + "个设备被点击，当前状态为" + this.deviceList[ID - 1].relayState);
-        this.publish.topic = "/milesight/downlink/" + this.deviceList[ID - 1].EUI;
-        this.publish.payload = this.deviceList[ID - 1].relayState
+        console.log("第" + ID + "个设备被点击，当前状态为" + this.myMqttService.DownlinkDeviceList[ID - 1].relayState);
+        this.publish.topic = "/milesight/downlink/" + this.myMqttService.DownlinkDeviceList[ID - 1].EUI;
+        this.publish.payload = this.myMqttService.DownlinkDeviceList[ID - 1].relayState
                                 ? '{"confirmed": true,"fport": 2,"data": "AgA="}'
                                 : '{"confirmed": true,"fport": 2,"data": "AgE="}';
         this.doPublish();
+        this.myMqttService.DownlinkCount ++;
     }
     // 发送消息
     doPublish() {

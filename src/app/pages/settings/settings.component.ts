@@ -9,6 +9,7 @@ import { IClientSubscribeOptions } from 'mqtt-browser';
 import { Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import {MyMqttService} from "../../my-mqtt.service";
+import {ReceiveDataFormat} from "../../receive-data-format";
 
 
 @Component({
@@ -16,7 +17,7 @@ import {MyMqttService} from "../../my-mqtt.service";
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
-export class SettingsComponent implements OnInit{
+export class SettingsComponent {
     constructor(private message: NzMessageService, public myMqttService: MyMqttService) {
 
     }
@@ -28,21 +29,11 @@ export class SettingsComponent implements OnInit{
         clean: true, // 保留会话
         connectTimeout: 4000, // 超时时间
         reconnectPeriod: 4000, // 重连时间间隔
-        // 认证信息
-        clientId: 'mqttx_59c70a46f4',
+        clientId: 'mqttx_59c70a46f4',    // 认证信息
         username: '',
         password: '',
         protocol: 'ws',
     }
-
-    receiveNews = '';
-    qosList = [
-        { label: 0, value: 0 },
-        { label: 1, value: 1 },
-        { label: 2, value: 2 },
-    ];
-
-
 
     // 创建连接
     createConnection() {
@@ -69,13 +60,8 @@ export class SettingsComponent implements OnInit{
             this.message.error("连接失败！");
         });
         this.myMqttService.client?.onMessage.subscribe((packet: any) => {
-            // this.receiveNews = this.receiveNews.concat(packet.payload.toString())
-            // console.log(`Received message ${packet.payload.toString()} from topic ${packet.topic}`)
         })
     }
-
-
-
 
     // 断开连接
     destroyConnection() {
@@ -89,8 +75,5 @@ export class SettingsComponent implements OnInit{
         }
     }
 
-    ngOnInit() {
-    }
-
-
 }
+

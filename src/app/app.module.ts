@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-// components
+/* components */
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DownlinkComponent } from './pages/downlink/downlink.component';
 import { UplinkComponent } from './pages/uplink/uplink.component';
 import { SettingsComponent } from './pages/settings/settings.component';
-// ngx-mqtt
+/* ngx-mqtt */
 import { IMqttServiceOptions, MqttModule } from 'ngx-mqtt';
 
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -26,12 +26,16 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { NzCardModule } from 'ng-zorro-antd/card';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import { NzMessageModule } from 'ng-zorro-antd/message';
-
+/* service */
 import { MyMqttService } from  './my-mqtt.service';
+
 
 
 const antDesignIcons = AllIcons as {
@@ -83,6 +87,9 @@ registerLocaleData(zh);
         NzMessageModule,
         NzTableModule,
         NzSwitchModule,
+        NzSelectModule,
+        NzStatisticModule,
+        NzCardModule,
     ],
     providers: [
         { provide: NZ_I18N, useValue: zh_CN },

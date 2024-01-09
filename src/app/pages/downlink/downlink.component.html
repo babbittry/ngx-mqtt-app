@@ -1,4 +1,4 @@
-<nz-table #basicTable [nzData]="deviceList">
+<nz-table #basicTable [nzData]="this.myMqttService.DownlinkDeviceList">
     <thead>
         <tr>
             <th>ID</th>
@@ -8,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let device of basicTable.data">
+        <tr *ngFor="let device of this.myMqttService.DownlinkDeviceList">
             <td>{{ device.ID }}</td>
             <td>{{ device.EUIStr }}</td>
             <td>{{ device.joinState ? '在线' : '离线' }}</td>

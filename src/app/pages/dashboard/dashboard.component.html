@@ -1,1 +1,60 @@
-<p>dashboard works!</p>
+<nz-row [nzGutter]="16">
+    <nz-col [nzSpan]="12">
+        <div style="background: #ECECEC; padding: 30px;">
+            <nz-card>
+                <nz-statistic
+                    [nzValue]="5"
+                    [nzTitle]="'总连接数'"
+                    [nzPrefix]="prefixTplOne"
+                    [nzSuffix]=""
+                    [nzValueStyle]="{ color: '#3F8600' }"
+                ></nz-statistic>
+                <ng-template #prefixTplOne><i nz-icon nzType="audit"></i></ng-template>
+            </nz-card>
+        </div>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+        <div style="background: #ECECEC; padding: 30px;">
+            <nz-card>
+                <nz-statistic
+                    [nzValue]="onlineDevice"
+                    [nzTitle]="'在线设备'"
+                    [nzPrefix]="prefixTplTwo"
+                    [nzSuffix]=""
+                    [nzValueStyle]="{ color: '#CF1322' }"
+                ></nz-statistic>
+                <ng-template #prefixTplTwo><i nz-icon nzType="api"></i></ng-template>
+            </nz-card>
+        </div>
+    </nz-col>
+</nz-row>
+<nz-row [nzGutter]="16" style="margin-top: 30px">
+    <nz-col [nzSpan]="12">
+        <div style="background: #ECECEC; padding: 30px;">
+            <nz-card>
+                <nz-statistic
+                    [nzValue]="this.myMqttService.UplinkCount"
+                    [nzTitle]="'Uplink count'"
+                    [nzPrefix]="Uplink"
+                    [nzSuffix]="''"
+                    [nzValueStyle]="{ color: '#3F8600' }"
+                ></nz-statistic>
+                <ng-template #Uplink><i nz-icon nzType="cloud-upload"></i></ng-template>
+            </nz-card>
+        </div>
+    </nz-col>
+    <nz-col [nzSpan]="12">
+        <div style="background: #ECECEC; padding: 30px;">
+            <nz-card>
+                <nz-statistic
+                    [nzValue]="this.myMqttService.DownlinkCount"
+                    [nzTitle]="'Downlink count'"
+                    [nzPrefix]="Downlink"
+                    [nzSuffix]="''"
+                    [nzValueStyle]="{ color: '#CF1322' }"
+                ></nz-statistic>
+                <ng-template #Downlink><i nz-icon nzType="cloud-download"></i></ng-template>
+            </nz-card>
+        </div>
+    </nz-col>
+</nz-row>
