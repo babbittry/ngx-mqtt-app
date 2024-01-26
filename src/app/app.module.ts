@@ -29,12 +29,14 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import {NzBackTopModule} from "ng-zorro-antd/back-top";
 import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 /* service */
 import { MyMqttService } from  './my-mqtt.service';
+
 
 
 
@@ -90,6 +92,7 @@ registerLocaleData(zh);
         NzSelectModule,
         NzStatisticModule,
         NzCardModule,
+        NzBackTopModule,
     ],
     providers: [
         { provide: NZ_I18N, useValue: zh_CN },

@@ -4,7 +4,7 @@
             <nz-card>
                 <nz-statistic
                     [nzValue]="5"
-                    [nzTitle]="'总连接数'"
+                    [nzTitle]="'注册设备数'"
                     [nzPrefix]="prefixTplOne"
                     [nzSuffix]=""
                     [nzValueStyle]="{ color: '#3F8600' }"
@@ -21,7 +21,7 @@
                     [nzTitle]="'在线设备'"
                     [nzPrefix]="prefixTplTwo"
                     [nzSuffix]=""
-                    [nzValueStyle]="{ color: '#CF1322' }"
+                    [nzValueStyle]="{ color: '#3F8600' }"
                 ></nz-statistic>
                 <ng-template #prefixTplTwo><i nz-icon nzType="api"></i></ng-template>
             </nz-card>
@@ -51,7 +51,7 @@
                     [nzTitle]="'Downlink count'"
                     [nzPrefix]="Downlink"
                     [nzSuffix]="''"
-                    [nzValueStyle]="{ color: '#CF1322' }"
+                    [nzValueStyle]="{ color: '#3F8600' }"
                 ></nz-statistic>
                 <ng-template #Downlink><i nz-icon nzType="cloud-download"></i></ng-template>
             </nz-card>

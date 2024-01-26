@@ -80,10 +80,28 @@ nz-content {
     min-width: 700px;
 }
 
+nz-sider {
+    overflow: auto;
+    /*height: 100%;*/
+    position: fixed;
+    left: 0;
+    height: 100vh;
+}
+
 nz-sider ul li {
     font-size: 16px;
 }
 
 nz-sider ul li .anticon {
     font-size: 16px;
+}
+
+
+:host ::ng-deep .ant-back-top {
+    z-index: 100;
+}
+
+
+:host ::ng-deep .ant-back-top .ant-back-top-content {
+    background-color: #ff8d05;
 }

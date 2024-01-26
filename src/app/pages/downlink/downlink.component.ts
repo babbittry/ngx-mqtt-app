@@ -14,7 +14,7 @@ export class DownlinkComponent {
 
     publish = {
         topic: '/milesight/downlink/0080E11500449915',
-        qos: 0,
+        qos: 1,
         payload: '{"confirmed": true,"fport": 2,"data": "AgE="}',
     };
 

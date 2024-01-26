@@ -44,7 +44,6 @@ export class UplinkComponent {
                     data: base64ToHex(messageJsonObject.data),  // decode base64
                     RSSI: messageJsonObject.rxInfo[0].rssi,
                     SNR: messageJsonObject.rxInfo[0].loRaSNR,
-
                     frequency: messageJsonObject.txInfo.frequency,
                     time: getCurrentDateTime(),
                 };
