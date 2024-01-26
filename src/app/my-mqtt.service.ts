@@ -35,7 +35,7 @@ export class MyMqttService {
         datasets: [
             {
                 data: [  ],
-                label: '机内温度',
+                label: '探头温度',
                 fill: true,
                 tension: 0.5,
                 borderColor: 'red',
@@ -43,20 +43,12 @@ export class MyMqttService {
             },
             {
                 data: [  ],
-                label: '探头温度',
+                label: '设定温度',
                 fill: true,
                 tension: 0.5,
                 borderColor: 'green',
                 backgroundColor: 'rgba(0,255,0,0.3)'
             },
-            {
-                data: [  ],
-                label: '设定温度',
-                fill: true,
-                tension: 0.5,
-                borderColor: 'blue',
-                backgroundColor: 'rgba(0,0,255,0.3)'
-            }
         ]
     };
   constructor(private _mqttService: MqttService) {

@@ -15,7 +15,6 @@ import { BaseChartDirective } from 'ng2-charts';
     styleUrls: ['./uplink.component.css'],
 })
 
-
 export class UplinkComponent {
     constructor(public myMqttService: MyMqttService) {
     }
@@ -30,6 +29,8 @@ export class UplinkComponent {
         topic: '/milesight/uplink',
         qos: 0,
     };
+
+    readonly maxChartItem:number = 15;
 
     // 订阅主题
 
@@ -53,22 +54,32 @@ export class UplinkComponent {
                 console.log(newReceiveDataObject);
                 this.myMqttService.receiveDataList.push(newReceiveDataObject);
                 this.myMqttService.UplinkCount ++;
-                if(newReceiveDataObject.data.slice(0, 2) === '63'){
-                    this.myMqttService.lineChartData.labels?.push(newReceiveDataObject.time);
-                    const chipTemp:number = parseInt('0x' + newReceiveDataObject.data.slice(4, 6), 16);
-                    this.myMqttService.lineChartData.datasets[0].data.push(chipTemp);
-                    console.log("芯片温度:", chipTemp);
-                    this.deviceInfoChart?.update();
-                }
                 if(newReceiveDataObject.data.slice(0, 2) === '65'){
-                    this.myMqttService.lineChartData.labels?.push(newReceiveDataObject.time);
-                    const sensorTemp :number= parseInt('0x' + newReceiveDataObject.data.slice(4, 8), 16) / 10;
-                    this.myMqttService.lineChartData.datasets[1].data.push(sensorTemp);
-                    console.log("探头温度:", sensorTemp);
-                    const settingTemp:number=parseInt('0x' + newReceiveDataObject.data.slice(8, 12), 16) /10;
-                    this.myMqttService.lineChartData.datasets[2].data.push(settingTemp);
-                    console.log("设定温度:", settingTemp);
-                    this.deviceInfoChart?.update();
+                    if(newReceiveDataObject.data.slice(4, 8) != 'ffff' ){   /* 通讯成功 */
+                        if(this.myMqttService.lineChartData.labels!.length < this.maxChartItem){    // less than 15
+                            this.myMqttService.lineChartData.labels?.push(newReceiveDataObject.time);
+                            const sensorTemp :number= parseInt('0x' + newReceiveDataObject.data.slice(4, 8), 16) / 10;
+                            this.myMqttService.lineChartData.datasets[0].data.push(sensorTemp);
+                            console.log("探头温度:", sensorTemp);
+                            const settingTemp:number=parseInt('0x' + newReceiveDataObject.data.slice(8, 12), 16) /10;
+                            this.myMqttService.lineChartData.datasets[1].data.push(settingTemp);
+                            console.log("设定温度:", settingTemp);
+                            this.deviceInfoChart?.update();
+                        }else{
+                            this.myMqttService.lineChartData.labels = this.myMqttService.lineChartData.labels?.slice(1); // delete 1st item
+                            this.myMqttService.lineChartData.labels?.push(newReceiveDataObject.time);       // add new
+                            const sensorTemp :number= parseInt('0x' + newReceiveDataObject.data.slice(4, 8), 16) / 10;
+                            this.myMqttService.lineChartData.datasets[0].data = this.myMqttService.lineChartData.datasets[0].data.slice(1); // delete 1st item
+                            this.myMqttService.lineChartData.datasets[0].data.push(sensorTemp);       // add new
+                            console.log("探头温度:", sensorTemp);
+                            const settingTemp:number=parseInt('0x' + newReceiveDataObject.data.slice(8, 12), 16) /10;
+                            this.myMqttService.lineChartData.datasets[1].data = this.myMqttService.lineChartData.datasets[1].data.slice(1); // delete 1st item
+                            this.myMqttService.lineChartData.datasets[1].data.push(settingTemp);       // add new
+                            console.log("设定温度:", settingTemp);
+                            this.deviceInfoChart?.update();
+                        }
+
+                    }
                 }
             })
             this.myMqttService.subscribeSuccess = true
