@@ -34,6 +34,7 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NgChartsModule } from 'ng2-charts';
 /* service */
 import { MyMqttService } from  './my-mqtt.service';
 
@@ -93,6 +94,7 @@ registerLocaleData(zh);
         NzStatisticModule,
         NzCardModule,
         NzBackTopModule,
+        NgChartsModule,
     ],
     providers: [
         { provide: NZ_I18N, useValue: zh_CN },

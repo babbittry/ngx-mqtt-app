@@ -1,10 +1,13 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {IClientSubscribeOptions} from "mqtt";
 import {IMqttMessage} from "ngx-mqtt";
 import {Subscription} from "rxjs";
 import {MyMqttService} from "../../my-mqtt.service";
 import * as timers from "timers";
 import {ReceiveDataFormat} from "../../receive-data-format";
+import { Chart, ChartConfiguration, ChartOptions, ChartEvent, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+
 
 @Component({
     selector: 'app-uplink',
@@ -50,6 +53,23 @@ export class UplinkComponent {
                 console.log(newReceiveDataObject);
                 this.myMqttService.receiveDataList.push(newReceiveDataObject);
                 this.myMqttService.UplinkCount ++;
+                if(newReceiveDataObject.data.slice(0, 2) === '63'){
+                    this.myMqttService.lineChartData.labels?.push(newReceiveDataObject.time);
+                    const chipTemp:number = parseInt('0x' + newReceiveDataObject.data.slice(4, 6), 16);
+                    this.myMqttService.lineChartData.datasets[0].data.push(chipTemp);
+                    console.log("芯片温度:", chipTemp);
+                    this.deviceInfoChart?.update();
+                }
+                if(newReceiveDataObject.data.slice(0, 2) === '65'){
+                    this.myMqttService.lineChartData.labels?.push(newReceiveDataObject.time);
+                    const sensorTemp :number= parseInt('0x' + newReceiveDataObject.data.slice(4, 8), 16) / 10;
+                    this.myMqttService.lineChartData.datasets[1].data.push(sensorTemp);
+                    console.log("探头温度:", sensorTemp);
+                    const settingTemp:number=parseInt('0x' + newReceiveDataObject.data.slice(8, 12), 16) /10;
+                    this.myMqttService.lineChartData.datasets[2].data.push(settingTemp);
+                    console.log("设定温度:", settingTemp);
+                    this.deviceInfoChart?.update();
+                }
             })
             this.myMqttService.subscribeSuccess = true
             console.log('Subscribe succeeded!');
@@ -64,6 +84,12 @@ export class UplinkComponent {
         this.myMqttService.subscribeSuccess = false;
         console.log('Unsubscribe succeeded!');
     }
+
+    public lineChartOptions: ChartOptions<'line'> = {
+        responsive: false
+    };
+    public lineChartLegend = true;
+    @ViewChild(BaseChartDirective) deviceInfoChart?: BaseChartDirective;
 }
 
 function base64ToHex(base64String: string): string {

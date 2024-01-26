@@ -7,6 +7,7 @@ import {
 } from 'ngx-mqtt';
 import {Subscription} from "rxjs";
 import {ReceiveDataFormat} from "./receive-data-format";
+import {ChartConfiguration} from "chart.js";
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,37 @@ export class MyMqttService {
         {ID: 4, EUIStr: '00-80-E1-15-00-44-99-15', EUI: '0080E11500449915', joinState: false, relayState: false},
         {ID: 5, EUIStr: '00-80-E1-15-00-44-99-15', EUI: '0080E11500449915', joinState: false, relayState: false},
     ];
+    lineChartData: ChartConfiguration<'line'>['data'] = {
+        labels: [
 
+        ],
+        datasets: [
+            {
+                data: [  ],
+                label: '机内温度',
+                fill: true,
+                tension: 0.5,
+                borderColor: 'red',
+                backgroundColor: 'rgba(255,0,0,0.3)'
+            },
+            {
+                data: [  ],
+                label: '探头温度',
+                fill: true,
+                tension: 0.5,
+                borderColor: 'green',
+                backgroundColor: 'rgba(0,255,0,0.3)'
+            },
+            {
+                data: [  ],
+                label: '设定温度',
+                fill: true,
+                tension: 0.5,
+                borderColor: 'blue',
+                backgroundColor: 'rgba(0,0,255,0.3)'
+            }
+        ]
+    };
   constructor(private _mqttService: MqttService) {
       this.client = this._mqttService;
   }

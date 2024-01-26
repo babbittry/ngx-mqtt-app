@@ -21,8 +21,21 @@
         </nz-form-item>
     </form>
 </div>
-
-<nz-table #basicTable [nzData]="this.myMqttService.receiveDataList" [nzShowPagination]="false" [nzTemplateMode]="true">
+<nz-row [nzGutter]="16" style="margin-top: 30px;">
+    <nz-col [nzSpan]="24">
+        <div style="background: #ECECEC; padding: 30px;">
+            <nz-card>
+                <canvas baseChart width="756px" height="400px" id="deviceInfoChart"
+                        [type]="'line'"
+                        [data]="this.myMqttService.lineChartData"
+                        [options]="lineChartOptions"
+                        [legend]="lineChartLegend">
+                </canvas>
+            </nz-card>
+        </div>
+    </nz-col>
+</nz-row>
+<nz-table #basicTable [nzData]="this.myMqttService.receiveDataList" [nzShowPagination]="false" [nzTemplateMode]="true"  style="margin-top: 30px;">
     <thead>
     <tr>
         <th>Device Name</th>
